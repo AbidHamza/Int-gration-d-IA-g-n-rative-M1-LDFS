@@ -25,9 +25,25 @@ A la fin de ce cours, vous serez capable de :
 - Python 3.10 ou supérieur installé sur votre machine
 - Connaissance des bases de Python (variables, fonctions, boucles, fichiers)
 - Un compte Hugging Face (gratuit) : https://huggingface.co
-- Un compte sur une plateforme LLM (OpenAI, Mistral AI ou Groq — des clés gratuites suffisent pour les exercices)
+- Une clé API gratuite (voir section suivante)
 
 Aucune connaissance en mathématiques, statistiques ou machine learning n'est requise.
+
+---
+
+## API gratuites — Aucun paiement nécessaire
+
+Ce cours est conçu pour fonctionner entièrement avec des API gratuites. Vous avez 3 options :
+
+| Option | Coût | Inscription | Avantage |
+|--------|------|------------|----------|
+| **Groq** (recommandé) | Gratuit | https://console.groq.com | Rapide, généreux en quota, modèles Llama 3 et Mixtral |
+| **Ollama** (local) | Gratuit | https://ollama.com | Aucune connexion internet nécessaire, tout tourne sur votre machine |
+| OpenAI | Payant | https://platform.openai.com | Option facultative si vous avez déjà un compte |
+
+**Nous recommandons Groq** : créez un compte en 2 minutes, générez une clé dans "API Keys", et tous les scripts du cours fonctionneront immédiatement.
+
+Le module `utils.py` à la racine du dépôt détecte automatiquement quelle clé est configurée et choisit le bon fournisseur. Vous n'avez rien à modifier dans le code.
 
 ---
 
@@ -41,12 +57,26 @@ cd Int-gration-d-IA-g-n-rative-M1-LDFS
 pip install -r requirements.txt
 ```
 
-Créez ensuite un fichier `.env` à la racine du dépôt avec vos clés :
+Copiez le fichier d'exemple et renseignez au moins une clé :
+
+```bash
+cp .env.example .env
+```
+
+Puis éditez `.env` avec votre clé Groq (gratuite) :
 
 ```
-OPENAI_API_KEY=votre_cle_openai
-HF_TOKEN=votre_token_huggingface
+GROQ_API_KEY=gsk_votre_cle_groq_ici
+HF_TOKEN=hf_votre_token_huggingface_ici
 ```
+
+Vérifiez que tout fonctionne :
+
+```bash
+python utils.py
+```
+
+Vous devez voir s'afficher le fournisseur détecté et le modèle utilisé.
 
 ---
 

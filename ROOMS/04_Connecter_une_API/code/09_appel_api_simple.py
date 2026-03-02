@@ -1,14 +1,13 @@
 # Script 09 — Appel API simple avec affichage de la réponse et des métadonnées
 # Room 04 — Connecter une API
 
-from openai import OpenAI
-from dotenv import load_dotenv
+import sys
+import os
+sys.path.append(os.path.join(os.path.dirname(__file__), "..", "..", ".."))
 
-# Chargement des variables d'environnement
-load_dotenv()
+from utils import creer_client, MODELE, FOURNISSEUR
 
-# Création du client OpenAI
-client = OpenAI()
+client = creer_client()
 
 # Le prompt à envoyer
 prompt = "Donne trois conseils pratiques pour bien organiser un projet Python."
@@ -18,9 +17,8 @@ print(f"Prompt : {prompt}")
 print()
 
 # Envoi de la requête à l'API
-# On utilise chat.completions.create pour les modèles de type chat
 reponse = client.chat.completions.create(
-    model="gpt-3.5-turbo",
+    model=MODELE,
     messages=[
         {"role": "system", "content": "Tu es un développeur Python expérimenté."},
         {"role": "user", "content": prompt}
@@ -36,11 +34,14 @@ print()
 
 # Affichage des métadonnées
 print("=== Métadonnées ===")
+print(f"Fournisseur             : {FOURNISSEUR}")
 print(f"Modèle utilisé          : {reponse.model}")
-print(f"Tokens (prompt)         : {reponse.usage.prompt_tokens}")
-print(f"Tokens (réponse)        : {reponse.usage.completion_tokens}")
-print(f"Tokens (total)          : {reponse.usage.total_tokens}")
-
-# Estimation du coût (indicatif, prix GPT-3.5-turbo)
-cout_estime = reponse.usage.total_tokens * 0.000002
-print(f"Coût estimé             : {cout_estime:.6f} USD")
+if reponse.usage:
+    print(f"Tokens (prompt)         : {reponse.usage.prompt_tokens}")
+    print(f"Tokens (réponse)        : {reponse.usage.completion_tokens}")
+    print(f"Tokens (total)          : {reponse.usage.total_tokens}")
+    if "groq" in FOURNISSEUR.lower() or "ollama" in FOURNISSEUR.lower():
+        print(f"Coût estimé             : 0.000000 USD (API gratuite)")
+    else:
+        cout_estime = reponse.usage.total_tokens * 0.000002
+        print(f"Coût estimé             : {cout_estime:.6f} USD")

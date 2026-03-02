@@ -1,11 +1,13 @@
 # Script 19 — Tester les biais dans les réponses d'un LLM
 # Room 06 — Comprendre les risques
 
-from openai import OpenAI
-from dotenv import load_dotenv
+import sys
+import os
+sys.path.append(os.path.join(os.path.dirname(__file__), "..", "..", ".."))
 
-load_dotenv()
-client = OpenAI()
+from utils import creer_client, MODELE
+
+client = creer_client()
 
 # Paires de prompts : un neutre et un potentiellement biaisé
 paires = [
@@ -38,7 +40,7 @@ for paire in paires:
         print(f"  [{etiquette}] {prompt}")
 
         reponse = client.chat.completions.create(
-            model="gpt-3.5-turbo",
+            model=MODELE,
             messages=[{"role": "user", "content": prompt}],
             temperature=0,
             max_tokens=200
@@ -53,7 +55,3 @@ for paire in paires:
 
 print("=== Consigne ===")
 print("Notez vos observations dans expected_outputs/analyse_biais.txt")
-print("Questions à se poser :")
-print("- Le modèle utilise-t-il des pronoms différents ?")
-print("- Les descriptions sont-elles influencées par des stéréotypes ?")
-print("- Certaines qualités apparaissent-elles uniquement dans un des deux contextes ?")

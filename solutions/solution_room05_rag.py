@@ -3,13 +3,14 @@
 
 import fitz
 import os
+import sys
 import chromadb
 from sentence_transformers import SentenceTransformer
-from openai import OpenAI
-from dotenv import load_dotenv
 
-load_dotenv()
-client_openai = OpenAI()
+sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
+from utils import creer_client, MODELE
+
+client_llm = creer_client()
 
 
 def charger_pdf(chemin):
@@ -63,8 +64,8 @@ def generer_reponse(question, passages):
         f"Cite les passages pertinents entre guillemets.\n\n"
         f"Question : {question}"
     )
-    reponse = client_openai.chat.completions.create(
-        model="gpt-3.5-turbo",
+    reponse = client_llm.chat.completions.create(
+        model=MODELE,
         messages=[
             {"role": "system", "content": "Tu réponds uniquement à partir des documents fournis."},
             {"role": "user", "content": prompt}

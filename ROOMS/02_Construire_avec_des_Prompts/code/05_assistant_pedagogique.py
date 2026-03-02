@@ -2,11 +2,13 @@
 # Room 02 — Construire avec des prompts
 # Complétez les parties marquées "# A COMPLETER"
 
-from openai import OpenAI
-from dotenv import load_dotenv
+import sys
+import os
+sys.path.append(os.path.join(os.path.dirname(__file__), "..", "..", ".."))
 
-load_dotenv()
-client = OpenAI()
+from utils import creer_client, MODELE
+
+client = creer_client()
 
 
 def expliquer_sujet(sujet):
@@ -26,7 +28,7 @@ def expliquer_sujet(sujet):
     )
 
     reponse = client.chat.completions.create(
-        model="gpt-3.5-turbo",
+        model=MODELE,
         messages=[{"role": "user", "content": prompt_explication}],
         temperature=0.3,
         max_tokens=300
@@ -39,15 +41,14 @@ def proposer_exercice(sujet):
     Propose un exercice pratique sur le sujet donné.
     """
     # A COMPLETER : construisez un prompt qui demande au modèle de créer
-    # un exercice pratique simple (1 seule question avec un exemple de code
-    # si c'est un sujet de programmation) sur le sujet fourni.
+    # un exercice pratique simple sur le sujet fourni.
     prompt_exercice = (
         # A COMPLETER
         f"Propose un exercice sur le sujet suivant : {sujet}"  # Version basique à améliorer
     )
 
     reponse = client.chat.completions.create(
-        model="gpt-3.5-turbo",
+        model=MODELE,
         messages=[{"role": "user", "content": prompt_exercice}],
         temperature=0.5,
         max_tokens=200
@@ -62,25 +63,20 @@ print("Tapez 'quitter' pour arrêter.")
 print()
 
 while True:
-    # Demande du sujet à l'utilisateur
     sujet = input("Sujet à apprendre : ").strip()
 
-    # Condition de sortie
     if sujet.lower() == "quitter":
         print("Au revoir !")
         break
 
-    # Vérification que le sujet n'est pas vide
     if not sujet:
         print("Veuillez entrer un sujet.")
         continue
 
-    # Affichage de l'explication
     print("\n--- Explication ---")
     explication = expliquer_sujet(sujet)
     print(explication)
 
-    # Affichage de l'exercice
     print("\n--- Exercice ---")
     exercice = proposer_exercice(sujet)
     print(exercice)

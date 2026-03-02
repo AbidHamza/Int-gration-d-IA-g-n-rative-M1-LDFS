@@ -2,13 +2,14 @@
 # Room 07 — Projets guidés
 
 import os
+import sys
 import chromadb
 from sentence_transformers import SentenceTransformer
-from openai import OpenAI
-from dotenv import load_dotenv
 
-load_dotenv()
-client_openai = OpenAI()
+sys.path.append(os.path.join(os.path.dirname(__file__), "..", "..", "..", ".."))
+from utils import creer_client, MODELE
+
+client_llm = creer_client()
 
 
 def charger_texte(chemin):
@@ -45,8 +46,6 @@ def construire_index(segments, modele_emb):
 
 def rechercher_passages(question, collection, modele_emb, n=3):
     """
-    Recherche les passages les plus pertinents pour la question.
-
     A COMPLETER :
     - Convertir la question en vecteur
     - Interroger la collection ChromaDB
@@ -58,14 +57,11 @@ def rechercher_passages(question, collection, modele_emb, n=3):
 
 def generer_reponse(question, passages):
     """
-    Génère une réponse à partir des passages trouvés.
-
     A COMPLETER :
-    - Construire un prompt RAG qui inclut les passages comme contexte
-    - Instruire le modèle à répondre uniquement à partir du contexte
+    - Construire un prompt RAG avec les passages comme contexte
     - Instruire le modèle à citer les passages sources
     - Si l'information n'est pas dans les passages, le dire explicitement
-    - Retourner la réponse du modèle
+    - Utiliser client_llm et MODELE
     """
     # A COMPLETER
     pass
@@ -73,7 +69,6 @@ def generer_reponse(question, passages):
 
 # --- Programme principal ---
 
-# Chargement et indexation du document
 chemin = os.path.join(os.path.dirname(__file__), "..", "..", "..", "datasets", "texte_entreprise.txt")
 print("Chargement du document d'entreprise...")
 texte = charger_texte(chemin)

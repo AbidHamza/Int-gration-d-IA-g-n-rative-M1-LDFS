@@ -1,13 +1,14 @@
 # Projet A — Assistant mémoire avec historique de conversation
 # Room 07 — Projets guidés
 
-from openai import OpenAI
-from dotenv import load_dotenv
+import sys
+import os
+sys.path.append(os.path.join(os.path.dirname(__file__), "..", "..", "..", ".."))
 
-load_dotenv()
-client = OpenAI()
+from utils import creer_client, MODELE
 
-# Message système qui définit le comportement de l'assistant
+client = creer_client()
+
 MESSAGE_SYSTEME = {
     "role": "system",
     "content": (
@@ -17,10 +18,7 @@ MESSAGE_SYSTEME = {
     )
 }
 
-# Historique de la conversation, initialisé avec le message système
 historique = [MESSAGE_SYSTEME]
-
-# Nombre maximum de paires user/assistant à conserver
 MAX_ECHANGES = 10
 
 
@@ -28,14 +26,10 @@ def ajouter_au_contexte(role, contenu):
     """
     Ajoute un message à l'historique et limite la taille de l'historique.
 
-    role    : "user" ou "assistant"
-    contenu : le texte du message
-
-    Règles :
+    A COMPLETER :
     - Ajouter le nouveau message à la fin de l'historique
     - Si le nombre de messages (hors message system) dépasse MAX_ECHANGES * 2,
       supprimer les 2 messages les plus anciens (après le message system)
-    - Le message system en position 0 ne doit jamais être supprimé
     """
     # A COMPLETER
     pass
@@ -46,8 +40,9 @@ def envoyer_message(texte_utilisateur):
     Envoie le message de l'utilisateur au LLM avec l'historique complet
     et retourne la réponse.
 
+    A COMPLETER :
     1. Ajouter le message utilisateur à l'historique
-    2. Envoyer l'historique complet au LLM
+    2. Envoyer l'historique complet au LLM (model=MODELE)
     3. Récupérer la réponse
     4. Ajouter la réponse de l'assistant à l'historique
     5. Retourner le texte de la réponse

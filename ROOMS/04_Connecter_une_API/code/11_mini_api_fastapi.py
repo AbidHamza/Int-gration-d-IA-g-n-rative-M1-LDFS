@@ -1,44 +1,37 @@
 # Script 11 — Mini serveur FastAPI qui interroge un LLM
 # Room 04 — Connecter une API
-# Lancer avec : uvicorn code.11_mini_api_fastapi:app --reload --port 8000
+# Lancer avec : uvicorn ROOMS.04_Connecter_une_API.code.11_mini_api_fastapi:app --reload --port 8000
+
+import sys
+import os
+sys.path.append(os.path.join(os.path.dirname(__file__), "..", "..", ".."))
 
 from fastapi import FastAPI
 from pydantic import BaseModel
-from openai import OpenAI
-from dotenv import load_dotenv
+from utils import creer_client, MODELE
 
-# Chargement des variables d'environnement
-load_dotenv()
-
-# Création du client OpenAI
-client = OpenAI()
+# Création du client (API gratuite détectée automatiquement)
+client = creer_client()
 
 # Création de l'application FastAPI
 app = FastAPI(title="Mini Assistant LLM", version="1.0")
 
 
-# Modèle de données pour la requête entrante
-# pydantic.BaseModel valide automatiquement les données reçues
 class QuestionRequest(BaseModel):
     question: str
 
 
-# Modèle de données pour la réponse
 class ReponseResult(BaseModel):
     question: str
     reponse: str
     tokens_utilises: int
 
 
-# Point d'accès principal : recevoir une question et retourner la réponse du LLM
 @app.post("/question", response_model=ReponseResult)
 def poser_question(req: QuestionRequest):
-    """
-    Reçoit une question, l'envoie au LLM et retourne la réponse.
-    """
-    # Appel au modèle OpenAI
+    """Reçoit une question, l'envoie au LLM et retourne la réponse."""
     completion = client.chat.completions.create(
-        model="gpt-3.5-turbo",
+        model=MODELE,
         messages=[
             {"role": "system", "content": "Tu es un assistant concis et pédagogique."},
             {"role": "user", "content": req.question}
@@ -47,15 +40,15 @@ def poser_question(req: QuestionRequest):
         max_tokens=300
     )
 
-    # Construction de la réponse
+    tokens = completion.usage.total_tokens if completion.usage else 0
+
     return ReponseResult(
         question=req.question,
         reponse=completion.choices[0].message.content,
-        tokens_utilises=completion.usage.total_tokens
+        tokens_utilises=tokens
     )
 
 
-# Point d'accès de test : vérifier que le serveur fonctionne
 @app.get("/sante")
 def verifier_sante():
     """Retourne un message simple pour vérifier que le serveur est opérationnel."""

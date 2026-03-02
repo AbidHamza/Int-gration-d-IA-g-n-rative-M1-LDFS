@@ -1,11 +1,13 @@
 # Solution Projet A — Assistant mémoire avec historique complet
 # Ce fichier est un corrigé de référence.
 
-from openai import OpenAI
-from dotenv import load_dotenv
+import sys
+import os
+sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 
-load_dotenv()
-client = OpenAI()
+from utils import creer_client, MODELE
+
+client = creer_client()
 
 MESSAGE_SYSTEME = {
     "role": "system",
@@ -23,10 +25,8 @@ MAX_ECHANGES = 10
 def ajouter_au_contexte(role, contenu):
     """Ajoute un message et limite la taille de l'historique."""
     historique.append({"role": role, "content": contenu})
-
-    # On garde le message system (position 0) + les MAX_ECHANGES*2 derniers messages
     while len(historique) - 1 > MAX_ECHANGES * 2:
-        historique.pop(1)  # Supprime le message le plus ancien après le system
+        historique.pop(1)
 
 
 def envoyer_message(texte_utilisateur):
@@ -34,7 +34,7 @@ def envoyer_message(texte_utilisateur):
     ajouter_au_contexte("user", texte_utilisateur)
 
     reponse = client.chat.completions.create(
-        model="gpt-3.5-turbo",
+        model=MODELE,
         messages=historique,
         temperature=0.3,
         max_tokens=300

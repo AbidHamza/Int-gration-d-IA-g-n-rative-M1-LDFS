@@ -3,13 +3,13 @@
 
 import json
 import os
-from openai import OpenAI
-from dotenv import load_dotenv
+import sys
 
-load_dotenv()
-client = OpenAI()
+sys.path.append(os.path.join(os.path.dirname(__file__), "..", "..", "..", ".."))
+from utils import creer_client, MODELE
 
-# Nombre maximum de tentatives si le JSON est invalide
+client = creer_client()
+
 MAX_TENTATIVES = 3
 
 
@@ -17,24 +17,21 @@ def charger_articles(chemin):
     """
     Charge le fichier d'articles et les sépare.
     Les articles sont séparés par une ligne '---'.
-    Retourne une liste de chaînes de caractères.
     """
     with open(chemin, "r", encoding="utf-8") as f:
         contenu = f.read()
-
     articles = [a.strip() for a in contenu.split("---") if a.strip()]
     return articles
 
 
 def analyser_article(texte_article, numero):
     """
-    Analyse un article en demandant au LLM d'extraire sentiment, mots-clés et résumé en JSON.
-
     A COMPLETER :
     - Construire un prompt qui demande au modèle d'analyser le texte
     - Exiger une sortie JSON avec les clés : article_numero, sentiment, mots_cles, resume
     - Tenter jusqu'à MAX_TENTATIVES fois si le JSON est invalide
-    - Retourner le dictionnaire Python résultant, ou None si toutes les tentatives échouent
+    - Utiliser client et MODELE
+    - Retourner le dictionnaire Python résultant, ou None si échec
     """
     # A COMPLETER
     pass
@@ -67,7 +64,6 @@ for i, article in enumerate(articles, 1):
 
     print()
 
-# Sauvegarde des résultats
 chemin_sortie = os.path.join(os.path.dirname(__file__), "..", "expected_outputs", "resultats_analyse.json")
 with open(chemin_sortie, "w", encoding="utf-8") as f:
     json.dump(resultats, f, ensure_ascii=False, indent=2)

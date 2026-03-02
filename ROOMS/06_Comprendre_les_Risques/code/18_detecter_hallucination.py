@@ -1,11 +1,13 @@
 # Script 18 — Détecter des hallucinations : 5 questions factuelles
 # Room 06 — Comprendre les risques
 
-from openai import OpenAI
-from dotenv import load_dotenv
+import sys
+import os
+sys.path.append(os.path.join(os.path.dirname(__file__), "..", "..", ".."))
 
-load_dotenv()
-client = OpenAI()
+from utils import creer_client, MODELE
+
+client = creer_client()
 
 # 5 questions factuelles : 3 ont une réponse vérifiable, 2 portent sur des sujets fictifs
 questions = [
@@ -26,9 +28,8 @@ for i, question in enumerate(questions, 1):
     print(f"--- Question {i} ---")
     print(f"Q : {question}")
 
-    # Envoi de la question au modèle
     reponse = client.chat.completions.create(
-        model="gpt-3.5-turbo",
+        model=MODELE,
         messages=[{"role": "user", "content": question}],
         temperature=0,
         max_tokens=200

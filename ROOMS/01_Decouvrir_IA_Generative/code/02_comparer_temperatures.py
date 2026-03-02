@@ -1,21 +1,19 @@
 # Script 02 — Comparer les réponses d'un LLM à deux températures différentes
 # Room 01 — Découvrir l'IA générative
 
-from openai import OpenAI
+import sys
 import os
-from dotenv import load_dotenv
+sys.path.append(os.path.join(os.path.dirname(__file__), "..", "..", ".."))
 
-# Chargement des variables d'environnement depuis .env
-load_dotenv()
+from utils import creer_client, MODELE
 
-# Création du client OpenAI
-client = OpenAI()
+# Création du client (API gratuite détectée automatiquement)
+client = creer_client()
 
 # Le prompt utilisé pour les deux comparaisons
-# On utilise le même prompt pour que la comparaison soit équitable
 prompt = "Décris en quelques phrases comment fonctionne la photosynthèse."
 
-# Fonction utilitaire : envoie un prompt au modèle et retourne la réponse
+
 def interroger_modele(prompt_texte, temperature_valeur):
     """
     Envoie un prompt au modèle et retourne le texte de la réponse.
@@ -23,17 +21,16 @@ def interroger_modele(prompt_texte, temperature_valeur):
     prompt_texte      : la question à poser (chaîne de caractères)
     temperature_valeur: la température souhaitée (nombre entre 0 et 1)
     """
-    # Appel à l'API avec la température spécifiée
     reponse = client.chat.completions.create(
-        model="gpt-3.5-turbo",
+        model=MODELE,
         messages=[
             {"role": "user", "content": prompt_texte}
         ],
         temperature=temperature_valeur,
         max_tokens=300
     )
-    # On retourne uniquement le texte de la réponse
     return reponse.choices[0].message.content
+
 
 # Affichage du prompt envoyé
 print("=== Prompt utilisé pour les deux tests ===")
@@ -52,7 +49,7 @@ reponse_t09 = interroger_modele(prompt, temperature_valeur=0.9)
 print(reponse_t09)
 print()
 
-# Comparaison simple : les deux réponses sont-elles identiques ?
+# Comparaison simple
 if reponse_t0.strip() == reponse_t09.strip():
     print("Les deux réponses sont identiques.")
 else:

@@ -3,13 +3,14 @@
 
 import fitz
 import os
+import sys
 import chromadb
 from sentence_transformers import SentenceTransformer
-from openai import OpenAI
-from dotenv import load_dotenv
 
-load_dotenv()
-client_openai = OpenAI()
+sys.path.append(os.path.join(os.path.dirname(__file__), "..", "..", ".."))
+from utils import creer_client, MODELE
+
+client_llm = creer_client()
 
 
 def charger_pdf(chemin):
@@ -58,10 +59,8 @@ def rechercher_contexte(question, collection, modele_embedding, n_resultats=3):
 
 def generer_reponse_rag(question, passages):
     """Envoie les passages et la question au LLM pour obtenir une réponse contextualisée."""
-    # Construction du contexte à partir des passages trouvés
     contexte = "\n---\n".join(passages)
 
-    # Le prompt RAG instruit le modèle à répondre UNIQUEMENT à partir du contexte fourni
     prompt = (
         f"Voici des extraits d'un document :\n"
         f"---\n{contexte}\n---\n\n"
@@ -71,8 +70,8 @@ def generer_reponse_rag(question, passages):
         f"Question : {question}"
     )
 
-    reponse = client_openai.chat.completions.create(
-        model="gpt-3.5-turbo",
+    reponse = client_llm.chat.completions.create(
+        model=MODELE,
         messages=[
             {"role": "system", "content": "Tu es un assistant qui répond uniquement à partir des documents fournis."},
             {"role": "user", "content": prompt}
@@ -85,7 +84,6 @@ def generer_reponse_rag(question, passages):
 
 # --- Programme principal ---
 
-# Chargement et indexation du document
 chemin_pdf = os.path.join(os.path.dirname(__file__), "..", "..", "..", "datasets", "rapport_fictif.pdf")
 print("Chargement du document...")
 texte = charger_pdf(chemin_pdf)
@@ -97,7 +95,6 @@ collection = construire_index(segments, modele_emb)
 print(f"Index prêt : {collection.count()} segments indexés.")
 print()
 
-# Boucle interactive
 print("=== Système RAG prêt ===")
 print("Posez vos questions sur le document. Tapez 'quitter' pour arrêter.")
 print()
@@ -112,14 +109,12 @@ while True:
     if not question:
         continue
 
-    # Recherche des passages pertinents
     passages = rechercher_contexte(question, collection, modele_emb)
 
     print("\n--- Passages trouvés ---")
     for i, p in enumerate(passages):
         print(f"[{i+1}] {p[:150]}...")
 
-    # Génération de la réponse
     print("\n--- Réponse ---")
     reponse = generer_reponse_rag(question, passages)
     print(reponse)

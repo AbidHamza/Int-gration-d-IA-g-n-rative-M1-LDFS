@@ -1,11 +1,13 @@
 # Solution Room 02 — Prompts structurés et assistant pédagogique complet
 # Ce fichier est un corrigé de référence.
 
-from openai import OpenAI
-from dotenv import load_dotenv
+import sys
+import os
+sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 
-load_dotenv()
-client = OpenAI()
+from utils import creer_client, MODELE
+
+client = creer_client()
 
 
 # --- Corrigé : prompts structurés ---
@@ -37,7 +39,7 @@ def expliquer_sujet(sujet):
         "Maximum 150 mots."
     )
     reponse = client.chat.completions.create(
-        model="gpt-3.5-turbo",
+        model=MODELE,
         messages=[{"role": "user", "content": prompt}],
         temperature=0.3,
         max_tokens=300
@@ -56,7 +58,7 @@ def proposer_exercice(sujet):
         "Maximum 100 mots."
     )
     reponse = client.chat.completions.create(
-        model="gpt-3.5-turbo",
+        model=MODELE,
         messages=[{"role": "user", "content": prompt}],
         temperature=0.5,
         max_tokens=200
