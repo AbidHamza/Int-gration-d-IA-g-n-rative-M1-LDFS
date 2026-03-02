@@ -1,4 +1,4 @@
-﻿# Architecture - Projet A : Assistant mémoire
+# Architecture - Projet A : Assistant mémoire
 
 ## Description
 
@@ -17,7 +17,7 @@ assistant_memoire.py
     | limite à 10 échanges maximum
     |
     v
-API OpenAI (chat.completions)
+API LLM via Groq/Ollama (chat.completions)
     |
     | reçoit l'historique complet + nouveau message
     |

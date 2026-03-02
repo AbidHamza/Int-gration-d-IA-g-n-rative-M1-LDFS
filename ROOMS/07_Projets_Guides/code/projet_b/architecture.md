@@ -1,4 +1,4 @@
-﻿# Architecture - Projet B : Assistant entreprise
+# Architecture - Projet B : Assistant entreprise
 
 ## Description
 
@@ -18,7 +18,7 @@ assistant_entreprise.py
     | 3. Construit le prompt RAG avec les passages trouvés
     |
     v
-API OpenAI (chat.completions)
+API LLM via Groq/Ollama (chat.completions)
     |
     | reçoit le prompt RAG (contexte + question)
     |

@@ -1,9 +1,9 @@
 # Script 10 - Compter les tokens d'un prompt avant l'envoi
 # Room 04 - Connecter une API
 #
-# Note : tiktoken est l'encodeur d'OpenAI. Si vous utilisez Groq ou Ollama
-# avec des modeles Llama, le decompte sera approximatif (les encodeurs different
-# legerement). L'ordre de grandeur reste correct pour estimer les couts.
+# Note : tiktoken est un outil de comptage de tokens. Si vous utilisez Groq
+# ou Ollama avec des modeles Llama, le decompte sera approximatif (les encodeurs
+# different legerement). L'ordre de grandeur reste correct pour estimer les quotas.
 
 import sys
 import os
@@ -14,7 +14,7 @@ from utils import FOURNISSEUR, MODELE
 # On tente d'utiliser tiktoken si disponible, sinon on approxime
 try:
     import tiktoken
-    encodeur = tiktoken.encoding_for_model("gpt-3.5-turbo")
+    encodeur = tiktoken.get_encoding("cl100k_base")
     MODE_COMPTAGE = "tiktoken"
 except Exception:
     encodeur = None
@@ -39,12 +39,10 @@ print()
 print(f"Nombre de caracteres : {len(prompt)}")
 
 if encodeur:
-    # Encodage precis avec tiktoken
     tokens = encodeur.encode(prompt)
-    print(f"Nombre de tokens     : {len(tokens)} (tiktoken, encodeur OpenAI)")
+    print(f"Nombre de tokens     : {len(tokens)} (tiktoken)")
     print()
 
-    # Visualisation des tokens (les 10 premiers)
     print("=== Detail des tokens (10 premiers) ===")
     for i, token_id in enumerate(tokens[:10]):
         texte_token = encodeur.decode([token_id])
@@ -52,23 +50,12 @@ if encodeur:
     print(f"  ... ({len(tokens) - 10} tokens restants)")
     nb_tokens = len(tokens)
 else:
-    # Approximation : 1 token ~ 0.75 mot en francais
     nb_mots = len(prompt.split())
     nb_tokens = int(nb_mots / 0.75)
     print(f"Nombre de tokens     : ~{nb_tokens} (approximation : 1 token ~ 0.75 mot)")
 
 print()
-
-# Estimation du cout
-if "groq" in FOURNISSEUR.lower() or "ollama" in FOURNISSEUR.lower():
-    print("=== Estimation du cout ===")
-    print(f"Cout du prompt : 0.000000 USD (API gratuite)")
-else:
-    prix_par_1k = 0.002
-    cout = (nb_tokens / 1000) * prix_par_1k
-    print("=== Estimation du cout ===")
-    print(f"Cout du prompt seul : {cout:.6f} USD")
-    print(f"(sans compter les tokens de la reponse)")
-
+print("=== Estimation du cout ===")
+print(f"Cout : 0.000000 USD (API gratuite Groq/Ollama)")
 print()
 print("Exercice : modifiez le prompt dans ce script et relancez pour voir l'impact.")

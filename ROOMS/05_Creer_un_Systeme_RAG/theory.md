@@ -1,4 +1,4 @@
-﻿# Theory - Room 05 : Créer un système RAG
+# Theory - Room 05 : Créer un système RAG
 
 ## Problème concret de départ
 
@@ -15,8 +15,8 @@ La solution : construire un système RAG.
 **Définition** : chaque LLM a une fenêtre de contexte, c'est-à-dire un nombre maximum de tokens qu'il peut lire en une seule fois. Tout ce qui dépasse cette limite est ignoré.
 
 **Exemple** :
-- GPT-3.5-turbo : fenêtre de 4 096 tokens (environ 3 000 mots, soit 5-6 pages)
-- GPT-4 : fenêtre de 8 192 tokens (ou 128 000 pour les versions étendues)
+- Llama 3.1 8B (via Groq) : fenetre de 8 192 tokens (environ 6 000 mots, soit 10 pages)
+- Certains modeles recents : fenetre de 32 000 a 128 000 tokens
 
 **Conséquence** : impossible d'envoyer un document de 50 pages d'un seul bloc. Il faut une autre stratégie.
 

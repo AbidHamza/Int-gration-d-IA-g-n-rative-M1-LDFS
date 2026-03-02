@@ -1,4 +1,4 @@
-﻿# Script 01 - Envoyer un premier prompt à un LLM et afficher la réponse brute
+# Script 01 - Envoyer un premier prompt à un LLM et afficher la réponse brute
 # Room 01 - Découvrir l'IA générative
 
 # On ajoute le dossier racine du projet au chemin pour pouvoir importer utils.py
@@ -9,7 +9,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), "..", "..", ".."))
 # Importation du module utilitaire qui détecte automatiquement l'API gratuite
 from utils import creer_client, MODELE
 
-# Création du client (Groq gratuit, OpenAI ou Ollama selon votre .env)
+# Creation du client (Groq gratuit ou Ollama local selon votre .env)
 client = creer_client()
 
 # Définition du prompt : c'est la question ou instruction envoyée au modèle

@@ -1,7 +1,7 @@
 # Dependances Python pour le cours M1 - Integration des systemes d'IA generative
 # Installer avec : pip install -r requirements.txt
 
-# Appels aux LLMs via API (compatible Groq, OpenAI, Ollama)
+# Client API compatible Groq et Ollama
 openai>=1.0.0
 requests>=2.31.0
 

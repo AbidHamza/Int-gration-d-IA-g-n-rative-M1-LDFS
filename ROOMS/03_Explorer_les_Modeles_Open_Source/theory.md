@@ -2,7 +2,7 @@
 
 ## Problème concret de départ
 
-Vous savez maintenant interroger un LLM via une API payante (comme OpenAI). Mais il existe des centaines de modèles gratuits et open source, disponibles librement. Comment les trouver, les tester, et choisir celui qui convient à votre besoin ?
+Vous savez maintenant interroger un LLM via une API gratuite (comme Groq). Mais il existe des centaines de modeles open source, disponibles librement sur des plateformes dediees. Comment les trouver, les tester, et choisir celui qui convient a votre besoin ?
 
 ---
 

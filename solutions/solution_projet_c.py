@@ -1,13 +1,14 @@
-﻿# Solution Projet C - Analyseur de texte JSON complet
-# Ce fichier est un corrigé de référence.
+# Solution Projet C - Analyseur de texte JSON complet
+# Ce fichier est un corrige de reference.
 
 import json
 import os
-from openai import OpenAI
-from dotenv import load_dotenv
+import sys
 
-load_dotenv()
-client = OpenAI()
+sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
+from utils import creer_client, MODELE
+
+client = creer_client()
 
 MAX_TENTATIVES = 3
 
@@ -21,18 +22,18 @@ def charger_articles(chemin):
 def analyser_article(texte_article, numero):
     prompt = (
         "Tu es un analyste de texte. Analyse l'article suivant et retourne "
-        "UNIQUEMENT un objet JSON valide, sans texte avant ni après.\n"
+        "UNIQUEMENT un objet JSON valide, sans texte avant ni apres.\n"
         "Utilise exactement cette structure :\n"
         '{"article_numero": ' + str(numero) + ', '
-        '"sentiment": "positif ou négatif ou neutre", '
+        '"sentiment": "positif ou negatif ou neutre", '
         '"mots_cles": ["mot1", "mot2", "mot3", "mot4", "mot5"], '
-        '"resume": "Résumé en 2 phrases maximum."}\n\n'
+        '"resume": "Resume en 2 phrases maximum."}\n\n'
         f"Article :\n{texte_article}"
     )
 
     for tentative in range(MAX_TENTATIVES):
         reponse = client.chat.completions.create(
-            model="gpt-3.5-turbo",
+            model=MODELE,
             messages=[{"role": "user", "content": prompt}],
             temperature=0,
             max_tokens=300
@@ -60,9 +61,9 @@ if __name__ == "__main__":
         if r:
             resultats.append(r)
             print(f"  Sentiment : {r['sentiment']}")
-            print(f"  Mots-clés : {r['mots_cles']}")
+            print(f"  Mots-cles : {r['mots_cles']}")
 
     chemin_sortie = os.path.join(os.path.dirname(__file__), "resultats_solution.json")
     with open(chemin_sortie, "w", encoding="utf-8") as f:
         json.dump(resultats, f, ensure_ascii=False, indent=2)
-    print(f"\nRésultats sauvegardés : {chemin_sortie}")
+    print(f"\nResultats sauvegardes : {chemin_sortie}")

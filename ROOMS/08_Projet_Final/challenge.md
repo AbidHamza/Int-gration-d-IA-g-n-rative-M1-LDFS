@@ -1,4 +1,4 @@
-﻿# Challenge - Room 08
+# Challenge - Room 08
 
 ## Objectif
 
@@ -12,7 +12,7 @@ Ajoutez une interface web simple (Streamlit ou Gradio) pour interagir avec votre
 
 ### Multi-modèles
 
-Intégrez deux modèles différents (par exemple OpenAI et un modèle Hugging Face) et comparez leurs réponses automatiquement. Affichez un score de confiance basé sur la concordance.
+Integrez deux modeles differents (par exemple Groq et un modele Hugging Face) et comparez leurs reponses automatiquement. Affichez un score de confiance base sur la concordance.
 
 ### Évaluation automatique
 

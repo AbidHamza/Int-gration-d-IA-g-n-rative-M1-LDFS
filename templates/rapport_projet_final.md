@@ -1,4 +1,4 @@
-﻿# Rapport de projet final - Intégration des systèmes d'IA générative
+# Rapport de projet final - Intégration des systèmes d'IA générative
 
 **Nom et prénom** : [votre nom]
 **Date de remise** : [date]
@@ -43,7 +43,7 @@
 
 ### Modèle utilisé
 
-- Nom du modèle : [ex. gpt-3.5-turbo, Mistral-7B-Instruct]
+- Nom du modele : [ex. llama-3.1-8b-instant, Mistral-7B-Instruct]
 - Justification : [Pourquoi ce modèle plutôt qu'un autre ?]
 
 ### Base vectorielle

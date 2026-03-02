@@ -1,4 +1,4 @@
-﻿# Theory - Room 06 : Comprendre les risques
+# Theory - Room 06 : Comprendre les risques
 
 ## Problème concret de départ
 
@@ -43,9 +43,9 @@ Ce scénario n'est pas hypothétique. L'utilisation non contrôlée de l'IA gén
 **Risque** : si vous envoyez un document contenant des données personnelles à un LLM via une API, ces données transitent par un serveur externe. Selon le RGPD (en Europe), cela peut constituer un transfert de données non autorisé.
 
 **Exemple** :
-- Un enseignant envoie une liste d'étudiants avec leurs notes à ChatGPT pour "analyser les résultats".
-- Les noms, prénoms et notes sont envoyés aux serveurs d'OpenAI aux États-Unis.
-- Cela constitue un transfert de données personnelles vers un pays tiers.
+- Un enseignant envoie une liste d'etudiants avec leurs notes a un LLM en ligne pour "analyser les resultats".
+- Les noms, prenoms et notes sont envoyes aux serveurs du fournisseur, potentiellement hors d'Europe.
+- Cela peut constituer un transfert de donnees personnelles vers un pays tiers.
 
 **Bonne pratique** : anonymiser ou pseudonymiser les données avant de les envoyer à un LLM.
 
@@ -60,7 +60,7 @@ Ce scénario n'est pas hypothétique. L'utilisation non contrôlée de l'IA gén
 - Si un contrat est rédigé par un LLM et contient une erreur, qui est en faute ?
 - Un texte généré par IA peut-il être protégé par le droit d'auteur ?
 
-**Exemple** : un avocat aux États-Unis a soumis au tribunal un mémoire rédigé avec l'aide de ChatGPT. Le mémoire citait des affaires judiciaires inventées (hallucinations). L'avocat a été sanctionné pour avoir présenté de fausses références.
+**Exemple** : un avocat aux Etats-Unis a soumis au tribunal un memoire redige avec l'aide d'un LLM. Le memoire citait des affaires judiciaires inventees (hallucinations). L'avocat a ete sanctionne pour avoir presente de fausses references.
 
 **Ce qu'il faut retenir** : l'utilisateur humain reste responsable du contenu produit par le LLM. L'IA est un outil, pas un auteur responsable.
 

@@ -88,7 +88,7 @@ Le client envoie une question au serveur local, qui la transmet au LLM et retour
 Dans `expected_outputs/schema_flux.txt`, dessinez en texte le flux complet :
 
 ```
-Client Python → requête HTTP → Serveur FastAPI → appel API OpenAI → Modèle GPT → réponse → Serveur FastAPI → réponse HTTP → Client Python
+Client Python -> requete HTTP -> Serveur FastAPI -> appel API Groq -> Modele Llama -> reponse -> Serveur FastAPI -> reponse HTTP -> Client Python
 ```
 
 Pour chaque étape, indiquez :

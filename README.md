@@ -1,4 +1,4 @@
-﻿# Intégration des systèmes d'IA générative - M1 LDFS
+# Intégration des systèmes d'IA générative - M1 LDFS
 
 Bienvenue dans ce dépôt pédagogique conçu pour le cours de Master 1 intitulé **« Intégration des systèmes d'IA générative »**.
 
@@ -33,13 +33,12 @@ Aucune connaissance en mathématiques, statistiques ou machine learning n'est re
 
 ## API gratuites - Aucun paiement nécessaire
 
-Ce cours est conçu pour fonctionner entièrement avec des API gratuites. Vous avez 3 options :
+Ce cours est concu pour fonctionner entierement avec des API gratuites. Vous avez 2 options :
 
-| Option | Coût | Inscription | Avantage |
+| Option | Cout | Inscription | Avantage |
 |--------|------|------------|----------|
-| **Groq** (recommandé) | Gratuit | https://console.groq.com | Rapide, généreux en quota, modèles Llama 3 et Mixtral |
-| **Ollama** (local) | Gratuit | https://ollama.com | Aucune connexion internet nécessaire, tout tourne sur votre machine |
-| OpenAI | Payant | https://platform.openai.com | Option facultative si vous avez déjà un compte |
+| **Groq** (recommande) | Gratuit | https://console.groq.com | Rapide, genereux en quota, modeles Llama 3 et Mixtral |
+| **Ollama** (local) | Gratuit | https://ollama.com | Aucune connexion internet necessaire, tout tourne sur votre machine |
 
 **Nous recommandons Groq** : créez un compte en 2 minutes, générez une clé dans "API Keys", et tous les scripts du cours fonctionneront immédiatement.
 
