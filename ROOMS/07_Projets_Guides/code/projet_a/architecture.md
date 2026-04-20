@@ -17,7 +17,7 @@ assistant_memoire.py
     | limite à 10 échanges maximum
     |
     v
-API LLM via Groq/Ollama (chat.completions)
+API LLM via Ollama (chat.completions, format compatible OpenAI)
     |
     | reçoit l'historique complet + nouveau message
     |

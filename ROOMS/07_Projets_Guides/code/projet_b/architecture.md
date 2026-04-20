@@ -18,7 +18,7 @@ assistant_entreprise.py
     | 3. Construit le prompt RAG avec les passages trouvés
     |
     v
-API LLM via Groq/Ollama (chat.completions)
+API LLM via Ollama (chat.completions, format compatible OpenAI)
     |
     | reçoit le prompt RAG (contexte + question)
     |

@@ -40,8 +40,5 @@ if reponse.usage:
     print(f"Tokens (prompt)         : {reponse.usage.prompt_tokens}")
     print(f"Tokens (réponse)        : {reponse.usage.completion_tokens}")
     print(f"Tokens (total)          : {reponse.usage.total_tokens}")
-    if "groq" in FOURNISSEUR.lower() or "ollama" in FOURNISSEUR.lower():
-        print(f"Coût estimé             : 0.000000 USD (API gratuite)")
-    else:
-        cout_estime = reponse.usage.total_tokens * 0.000002
-        print(f"Coût estimé             : {cout_estime:.6f} USD")
+    # Ollama est gratuit et local : cout toujours nul.
+    print(f"Coût estimé             : 0.000000 USD (Ollama local)")

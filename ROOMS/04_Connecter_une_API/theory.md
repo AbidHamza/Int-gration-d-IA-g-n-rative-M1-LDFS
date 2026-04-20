@@ -8,13 +8,13 @@ Vous savez envoyer un prompt depuis un script Python. Mais que se passe-t-il ent
 
 ## Notion 1 - L'API
 
-**Definition** : une API (Application Programming Interface) est un ensemble de regles qui permet a deux programmes de communiquer entre eux. Quand votre script Python envoie un prompt a un LLM heberge chez Groq, il utilise l'API de Groq.
+**Definition** : une API (Application Programming Interface) est un ensemble de regles qui permet a deux programmes de communiquer entre eux. Quand votre script Python envoie un prompt a Ollama (modele LLM local), il utilise l'API HTTP d'Ollama.
 
 **Analogie** : imaginez un restaurant. Vous (le client) ne parlez pas directement au cuisinier (le modele). Vous passez par le serveur (l'API) qui prend votre commande (le prompt), la transmet au cuisinier, et vous ramene le plat (la reponse).
 
 **Exemple concret** :
 ```
-Votre script Python  ->  requete HTTP  ->  serveur Groq  ->  modele Llama  ->  reponse  ->  votre script
+Votre script Python  ->  requete HTTP  ->  serveur Ollama (localhost:11434)  ->  modele TinyLlama  ->  reponse  ->  votre script
 ```
 
 ---
@@ -28,7 +28,7 @@ Votre script Python  ->  requete HTTP  ->  serveur Groq  ->  modele Llama  ->  r
 import requests
 
 response = requests.post(
-    "https://api.groq.com/openai/v1/chat/completions",   # adresse du serveur
+    "http://localhost:11434/v1/chat/completions",   # adresse du serveur local Ollama
     headers={"Authorization": "Bearer gsk-..."},           # authentification
     json={"model": "llama-3.1-8b-instant", "messages": [...]}  # donnees envoyees
 )
@@ -42,7 +42,7 @@ response = requests.post(
 
 **Definition** : une cle d'API est une chaine de caracteres secrete qui identifie votre compte aupres du serveur. Sans cette cle, le serveur refuse votre requete.
 
-**Exemple** : `gsk_abc123xyz456...` pour Groq, `hf_abc123...` pour Hugging Face.
+**Exemple** : avec Ollama local, aucune cle n'est requise. Pour Hugging Face, le format est `hf_abc123...`.
 
 **Regle de securite fondamentale** : ne jamais ecrire votre cle directement dans le code source. Utilisez un fichier `.env` (non versionne dans Git) et la bibliotheque `python-dotenv` pour la charger.
 
@@ -51,7 +51,8 @@ from dotenv import load_dotenv
 import os
 
 load_dotenv()
-cle = os.getenv("GROQ_API_KEY")
+# Ollama ne requiert aucune cle API, mais OpenAI SDK exige un placeholder :
+cle = "ollama"
 ```
 
 ---
@@ -86,11 +87,11 @@ else:
 
 ## Notion 5 - Le cout d'utilisation
 
-**Definition** : certaines API de LLM facturent a l'usage, proportionnellement au nombre de tokens traites (prompt + reponse). Les API gratuites comme Groq ont un quota genereux mais limite.
+**Definition** : certaines API de LLM facturent a l'usage, proportionnellement au nombre de tokens traites (prompt + reponse). Ollama etant local, il est 100%% gratuit et sans quota, mais la vitesse depend de la puissance de votre machine.
 
 **Ordres de grandeur** :
 - 1 000 tokens representent environ 750 mots
-- Groq : gratuit avec un quota de requetes par minute
+- Ollama : 100%% gratuit et illimite, mais la vitesse depend de votre CPU/GPU
 - Les API payantes facturent en general entre 0.001 et 0.06 USD / 1 000 tokens selon le modele
 
 **Pourquoi c'est important** : meme avec une API gratuite, un script mal concu qui envoie des requetes en boucle peut depasser le quota. Toujours estimer la taille d'un prompt avant un traitement en masse.

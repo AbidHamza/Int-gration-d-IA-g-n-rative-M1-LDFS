@@ -12,7 +12,7 @@ Ajoutez une interface web simple (Streamlit ou Gradio) pour interagir avec votre
 
 ### Multi-modèles
 
-Integrez deux modeles differents (par exemple Groq et un modele Hugging Face) et comparez leurs reponses automatiquement. Affichez un score de confiance base sur la concordance.
+Integrez deux modeles differents (par exemple Ollama local et un modele Hugging Face) et comparez leurs reponses automatiquement. Affichez un score de confiance base sur la concordance.
 
 ### Évaluation automatique
 

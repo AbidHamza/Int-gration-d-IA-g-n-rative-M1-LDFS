@@ -8,10 +8,11 @@ Connecter un script Python à l'API d'un LLM, gérer les erreurs, estimer les co
 
 ## Etape 1 - Vérifier la clé API
 
-Verifiez que votre fichier `.env` contient au moins une cle (Groq recommande) :
+Verifiez que votre fichier `.env` contient l'URL Ollama (valeur par defaut deja presente) :
 
 ```
-GROQ_API_KEY=gsk_votre_cle_ici
+OLLAMA_URL=http://localhost:11434/v1
+MODELE_OLLAMA=tinyllama
 ```
 
 Testez :
@@ -88,7 +89,7 @@ Le client envoie une question au serveur local, qui la transmet au LLM et retour
 Dans `expected_outputs/schema_flux.txt`, dessinez en texte le flux complet :
 
 ```
-Client Python -> requete HTTP -> Serveur FastAPI -> appel API Groq -> Modele Llama -> reponse -> Serveur FastAPI -> reponse HTTP -> Client Python
+Client Python -> requete HTTP -> Serveur FastAPI -> appel API Ollama -> Modele TinyLlama -> reponse -> Serveur FastAPI -> reponse HTTP -> Client Python
 ```
 
 Pour chaque étape, indiquez :

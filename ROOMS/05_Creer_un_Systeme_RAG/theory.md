@@ -15,7 +15,7 @@ La solution : construire un système RAG.
 **Définition** : chaque LLM a une fenêtre de contexte, c'est-à-dire un nombre maximum de tokens qu'il peut lire en une seule fois. Tout ce qui dépasse cette limite est ignoré.
 
 **Exemple** :
-- Llama 3.1 8B (via Groq) : fenetre de 8 192 tokens (environ 6 000 mots, soit 10 pages)
+- TinyLlama 1.1B (via Ollama) : fenetre de 2 048 tokens (environ 1 500 mots) ; llama3.2:1b : 8 192 tokens (environ 6 000 mots)
 - Certains modeles recents : fenetre de 32 000 a 128 000 tokens
 
 **Conséquence** : impossible d'envoyer un document de 50 pages d'un seul bloc. Il faut une autre stratégie.

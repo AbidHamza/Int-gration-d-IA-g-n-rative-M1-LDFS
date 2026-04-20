@@ -1,8 +1,8 @@
 # Script 10 - Compter les tokens d'un prompt avant l'envoi
 # Room 04 - Connecter une API
 #
-# Note : tiktoken est un outil de comptage de tokens. Si vous utilisez Groq
-# ou Ollama avec des modeles Llama, le decompte sera approximatif (les encodeurs
+# Note : tiktoken est un outil de comptage de tokens pour les modeles OpenAI. Pour
+# Ollama avec TinyLlama ou Llama, le decompte sera approximatif (les encodeurs
 # different legerement). L'ordre de grandeur reste correct pour estimer les quotas.
 
 import sys
@@ -56,6 +56,6 @@ else:
 
 print()
 print("=== Estimation du cout ===")
-print(f"Cout : 0.000000 USD (API gratuite Groq/Ollama)")
+print(f"Cout : 0.000000 USD (Ollama est gratuit et local)")
 print()
 print("Exercice : modifiez le prompt dans ce script et relancez pour voir l'impact.")

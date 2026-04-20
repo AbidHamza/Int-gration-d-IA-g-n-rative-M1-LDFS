@@ -1,0 +1,27 @@
+Demo du projet final
+=====================
+
+Cette demo doit etre enregistree par l'etudiant en executant son projet.
+
+Exemple de contenu attendu :
+
+--- Demarrage du systeme ---
+[API] Fournisseur : Ollama (local, gratuit)
+[API] Modele     : tinyllama
+[RAG] Indexation de 12 segments du document ...
+
+--- Interaction 1 ---
+Vous : Quelle est la strategie de l'entreprise en 2025 ?
+Assistant : D'apres le document (Passage 2), ...
+
+--- Interaction 2 ---
+Vous : ...
+
+--- Interaction 3 ---
+Vous : ...
+
+--- Cas limite / hors sujet ---
+Vous : Quelle est la capitale de la Mongolie ?
+Assistant : Cette information ne figure pas dans le document fourni.
+
+--- Fin de session ---

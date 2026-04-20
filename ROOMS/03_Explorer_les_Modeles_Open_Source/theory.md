@@ -2,7 +2,7 @@
 
 ## Problème concret de départ
 
-Vous savez maintenant interroger un LLM via une API gratuite (comme Groq). Mais il existe des centaines de modeles open source, disponibles librement sur des plateformes dediees. Comment les trouver, les tester, et choisir celui qui convient a votre besoin ?
+Vous savez maintenant interroger un LLM via Ollama en local. Mais il existe des centaines de modeles open source, disponibles librement sur des plateformes dediees. Comment les trouver, les tester, et choisir celui qui convient a votre besoin ?
 
 ---
 

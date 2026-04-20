@@ -15,7 +15,8 @@ python utils.py           # doit afficher le fournisseur detecte
 
 Vérifiez que votre fichier `.env` à la racine du dépôt contient :
 ```
-GROQ_API_KEY=gsk_votre_cle_ici
+OLLAMA_URL=http://localhost:11434/v1
+MODELE_OLLAMA=tinyllama
 ```
 
 ---

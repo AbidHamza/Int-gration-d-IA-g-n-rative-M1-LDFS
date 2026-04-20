@@ -1,8 +1,12 @@
 # Dependances Python pour le cours M1 - Integration des systemes d'IA generative
-# Installer avec : pip install -r requirements.txt
+# Installation : pip install -r requirements.txt
+#
+# Pre-requis externes :
+#   - Ollama installe et lance (https://ollama.com)
+#   - Modele par defaut : ollama pull tinyllama
 
-# Client API Groq et Ollama
-groq>=0.4.0
+# Client API (compatible Ollama, OpenAI, et tout endpoint OpenAI-like)
+openai>=1.30.0
 requests>=2.31.0
 
 # Variables d'environnement
@@ -12,7 +16,7 @@ python-dotenv>=1.0.0
 fastapi>=0.110.0
 uvicorn>=0.29.0
 
-# Modeles open source Hugging Face (Room 3)
+# Modeles open source Hugging Face (Room 3 uniquement)
 transformers>=4.40.0
 huggingface-hub>=0.22.0
 sentencepiece>=0.2.0

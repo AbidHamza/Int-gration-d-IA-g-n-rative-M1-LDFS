@@ -11,13 +11,13 @@ Client Python (12_client_local.py)
     v
 Serveur FastAPI (mini_api_fastapi.py)
     |
-    |  [2] Appel API vers Groq
+    |  [2] Appel API vers Ollama (local, http://localhost:11434/v1)
     |      Donnees envoyees : [decrivez le format]
     |      Cle API presente ? [ ] oui  [ ] non
     v
-Serveur Groq (distant)
+Serveur Ollama (local, localhost:11434)
     |
-    |  [3] Le modele Llama genere la reponse
+    |  [3] Le modele TinyLlama (ou llama3.2:1b) genere la reponse
     |      Donnees retournees : [decrivez le format]
     v
 Serveur FastAPI
